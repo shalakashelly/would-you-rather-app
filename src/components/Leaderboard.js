@@ -1,14 +1,13 @@
 import React, {Component} from 'react';
-import { Header, Image, Icon } from 'semantic-ui-react';
+import { Header, Image } from 'semantic-ui-react';
 import {connect} from 'react-redux';
-
 class Leaderboard extends Component {
 
     getLeaderboardData = () => {
         const {data} = this.props;
         return (
             data.map((user, idx) => (
-                <div className='row'>
+                <div key={idx} className='row'>
                     <div className='row-left'>
                         <div className="img">
                             <Image 
