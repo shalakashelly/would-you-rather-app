@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Header, Item, Label, Progress, Button} from 'semantic-ui-react';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
+import {optionOne, optionTwo} from './constants';
 
 class ResultPoll extends Component {
 
@@ -9,8 +10,8 @@ class ResultPoll extends Component {
         this.props.history.push('/');
     }
 
-    getVoteLabelForOptionOne = (userVote) => {
-        if (userVote === 'optionOne') {
+    getVoteLabel = (userVote, option) => {
+        if (userVote === option) {
             return (
                 <Label 
                     className="vote-ribbon"
@@ -20,16 +21,16 @@ class ResultPoll extends Component {
         return null;
     }
 
-    getVoteLabelForOptionTwo = (userVote) => {
-        if (userVote === 'optionTwo') {
-            return (
-                <Label 
-                    className="vote-ribbon"
-                    color='blue' ribbon>Your Vote</Label>
-            );
-        }
-        return null;
-    }
+    // getVoteLabelForOptionTwo = (userVote) => {
+    //     if (userVote === 'optionTwo') {
+    //         return (
+    //             <Label 
+    //                 className="vote-ribbon"
+    //                 color='blue' ribbon>Your Vote</Label>
+    //         );
+    //     }
+    //     return null;
+    // }
 
     render() {
         const { question, user } = this.props;
@@ -44,7 +45,7 @@ class ResultPoll extends Component {
                     <Header as="h4">Results:</Header>
                     <Header as="h5">Would you rather</Header>
                     <Item className="result-block">
-                        {this.getVoteLabelForOptionOne(userVote)}
+                        {this.getVoteLabel(userVote, optionOne)}
                         <p>{question.optionOne.text}</p>
                         <Progress percent={((optionOneVotes / totalVotes) * 100).toFixed(2)}
                             progress>
@@ -52,7 +53,7 @@ class ResultPoll extends Component {
                         </Progress>
                     </Item>
                     <Item className="result-block">
-                        {this.getVoteLabelForOptionTwo(userVote)}
+                        {this.getVoteLabel(userVote, optionTwo)}
                         <p>{question.optionTwo.text}</p>
                         <Progress percent={((optionTwoVotes / totalVotes) * 100).toFixed(2)}
                             progress>
