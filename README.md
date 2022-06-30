@@ -2,6 +2,20 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Setting up environment.
+- Clone the project
+- run __npm i__ to install all the dependencies
+- change to the source directory (where you can see __package.json__ file)
+- run __npm start__ to run the project
+
+## Working with the project
+- This application allows you to play the would you rather game with specific users.
+- You can login by selecting any pre-defined users from the dropdown.
+- Once you have logged in, you can choose to create a new poll, or answer existing polls.
+- To create a new poll, click on 'Create New Question' tab on the navigation bar. You can then enter the options that you would like to create.
+- You can check the results from the dashboard menu to check who is the winner and the questions created and answered by the users.
+- Clicking on logout will take the user to landing page.
+
 ## Available Scripts
 
 In the project directory, you can run:
