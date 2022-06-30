@@ -69,6 +69,7 @@
   border: 1px solid #dfdfdf;
   margin-bottom: 20px;
   background-color: lavender;
+  min-width: 300px;
 }
 
 .vote-ribbon {
