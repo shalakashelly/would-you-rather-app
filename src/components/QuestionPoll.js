@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
-import {Header, Button, Form, Radio} from 'semantic-ui-react';
+import {Header, Button} from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import {handleSaveQuestionAnswer} from '../actions/users';
+import {optionOne, optionTwo} from './constants';
 
 class QuestionPoll extends Component {
     state = {
@@ -9,21 +10,33 @@ class QuestionPoll extends Component {
     };
 
     handleInputChange = (e) => {
-        const selectedOption = e.target.value;
-        this.setState({selectedOption: selectedOption});
+        this.setState({selectedOption: e.target.value});
     }
 
     setOption = () => {
         // if at least one option has been selected then save that as an answer towards that question
-        if (this.state.selectedOption !== '') {
+        if (this.state.selectedOption) {
             this.props.handleSaveQuestionAnswer(this.props.authUser, this.props.question.id, this.state.selectedOption);
         }
     };
 
+    renderAnswer(option, answerText) {
+        return (
+            <>
+                <input
+                    type="radio"
+                    name="answer"
+                    value={option}
+                    checked={this.state.selectedOption === option}
+                    onChange={this.handleInputChange}
+                />
+                <label className='radio-label'>{answerText}</label>
+            </>
+        );
+    }
+
     render() {
         const {question} = this.props;
-        // Disabled the submit button if no option is selected by the user
-        const disabled = this.state.selectedOption === '' ? true : false;
         
         // If the question does not exist, then poll does not exist. 
         if (!question) {
@@ -38,29 +51,15 @@ class QuestionPoll extends Component {
                 <div className="poll-right">
                     <Header as="h5">Would you rather</Header>
                     <div className="question-form">
-                        <input
-                            type="radio"
-                            name="radio"
-                            value="optionOne"
-                            checked={this.state.selectedOption === 'optionOne'}
-                            onChange={this.handleInputChange}
-                        />
-                        <label className='radio-label'>{question.optionOne.text}</label>
+                        {this.renderAnswer(optionOne, question.optionOne.text)}
                         <br />
-                        <input
-                            type="radio"
-                            name="radio"
-                            value="optionTwo"
-                            checked={this.state.selectedOption === 'optionTwo'}
-                            onChange={this.handleInputChange}
-                        />
-                        <label className='radio-label'>{question.optionTwo.text}</label>
+                        {this.renderAnswer(optionTwo, question.optionTwo.text)}
                         <br />
                         <div className='submit-answer'>
                             <Button
                                 basic
                                 color='green'
-                                disabled={disabled}
+                                disabled={!this.state.selectedOption}
                                 onClick={this.setOption}
                             >Submit</Button>
                         </div>
