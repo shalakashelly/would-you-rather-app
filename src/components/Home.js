@@ -6,47 +6,44 @@ import UserInfo from './UserInfo';
 class Home extends Component {
 
     // Get the tab which has unanswered questions by all users
-    getUnansweredUserInfo = () => {
+    getCardData = (isUnanswered) => {
         const {userData} = this.props;
         return (
+            isUnanswered ? ( 
             <div>
                 {userData.unanswered.map(question => (
-                    <UserInfo 
-                        key={question.id}
-                        question_id={question.id}
-                        unanswered={true}
-                    />
+                    this.renderUserInfo(question, isUnanswered)
                 ))}
-            </div>
+            </div> 
+            ) : ( 
+            <div>
+                {userData.answered.map(question => (
+                    this.renderUserInfo(question, isUnanswered)
+                ))}
+            </div>)
         );
     }
 
-    // Get the tab which has answered questions by all users 
-    getAnsweredUserInfo = () => {
-        const {userData} = this.props;
+    renderUserInfo(question, isUnanswered) {
         return (
-            <div>
-                {userData.answered.map(question => (
-                    <UserInfo 
-                        key={question.id}
-                        question_id={question.id}
-                        unanswered={false}
-                    />
-                ))}
-            </div>
+            <UserInfo 
+                key={question.id}
+                question_id={question.id}
+                unanswered={isUnanswered}
+            />
         );
-    }  
+    }
 
     render () {
         const tab_content = [
             { menuItem: 'Unanswered Questions', render: () => 
                 <Tab.Pane>
-                   {this.getUnansweredUserInfo()}
+                   {this.getCardData(true)}
                 </Tab.Pane> 
             },
             { menuItem: 'Answered Questions', render: () =>  
                 <Tab.Pane>
-                    {this.getAnsweredUserInfo()}
+                    {this.getCardData(false)}
                 </Tab.Pane>
             }
         ];
