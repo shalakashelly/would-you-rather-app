@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Header, Image, Grid } from 'semantic-ui-react';
+import React, {Component} from "react";
+import {Header, Image} from 'semantic-ui-react';
 import {connect} from 'react-redux';
 import TeaserPoll from './TeaserPoll';
 import QuestionPoll from './QuestionPoll';
